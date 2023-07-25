@@ -9,7 +9,7 @@
     "tyorm",
     "express",
     "mongodb"
-  ]
+  ],
   "scripts": {
     "dev": "ts-node-dev --respawn ./src/main.ts"
   },
