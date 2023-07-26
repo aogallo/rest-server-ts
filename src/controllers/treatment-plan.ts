@@ -2,18 +2,28 @@ import { Request, Response } from 'express'
 import { MongoDataSource } from '../data-source'
 import TreatmentPlan from '../entities/treatment-plan'
 
-export const getTratamientPlan = (req: Request, res: Response) => {
+export const getTratamientPlan = async (req: Request, res: Response) => {
   const { id } = req.params
 
+  const treatmentPlan = await MongoDataSource.getRepository(
+    TreatmentPlan
+  ).find()
+
   res.json({
-    msg: 'tratamientos',
+    success: true,
+    data: treatmentPlan,
     id,
   })
 }
 
-export const getTratamientPlans = (req: Request, res: Response) => {
+export const getTratamientPlans = async (req: Request, res: Response) => {
+  const treatmentPlans = await MongoDataSource.getRepository(
+    TreatmentPlan
+  ).find()
+
   res.json({
-    msg: 'todos los tratamientos',
+    success: true,
+    data: treatmentPlans,
   })
 }
 
@@ -29,7 +39,7 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
 
   res.json({
     msg: 'crear tratamient',
-    results,
+    data: results,
   })
 }
 

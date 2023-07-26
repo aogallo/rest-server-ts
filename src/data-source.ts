@@ -6,21 +6,14 @@ const password = encodeURIComponent(
   process.env.PASSWORD_MONGO ?? 'IdXIl8BwmdFYoa41'
 )
 
-// const host = `mongodb+srv://${username}:${password}@cluster0.5hqi5nr.mongodb.net/?retryWrites=true&w=majority`
-const host =
-  'mongodb+srv://manageruser:Ih1cO0mnvovwXpab@cluster0.5hqi5nr.mongodb.net/'
-// ;('Ih1cO0mnvovwXpab')
-// mongodb+srv://manageruser:Ih1cO0mnvovwXpab@cluster0.5hqi5nr.mongodb.net/
-
-console.log('host', host)
+const url = `mongodb+srv://${username}:${password}@cluster0.c5tyaio.mongodb.net/?retryWrites=true&w=majority`
 
 export const MongoDataSource = new DataSource({
   type: 'mongodb',
-  // host: `mongodb+srv://${username}:AmW3fqydgCe4Q1DR@cluster0.5hqi5nr.mongodb.net/?retryWrites=true&w=majority`,
-  host,
   database: 'manager-system-dentist',
-  // synchronize: true,
-  loggerLevel: 'debug',
+  url,
+  useNewUrlParser: true,
+  synchronize: true,
   logging: true,
   entities: [TreatmentPlan],
 })
