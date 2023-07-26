@@ -1,25 +1,18 @@
 import { Request, Response } from 'express'
-import { MongoDataSource } from '../data-source'
-import TreatmentPlan from '../entities/treatment-plan'
+import { TreatmentPlanModel } from '../schemas/treatment-plan'
 
 export const getTratamientPlan = async (req: Request, res: Response) => {
   const { id } = req.params
-
-  const treatmentPlan = await MongoDataSource.getRepository(
-    TreatmentPlan
-  ).find()
+  const treatmentPlan = await TreatmentPlanModel.findById(id)
 
   res.json({
     success: true,
     data: treatmentPlan,
-    id,
   })
 }
 
 export const getTratamientPlans = async (req: Request, res: Response) => {
-  const treatmentPlans = await MongoDataSource.getRepository(
-    TreatmentPlan
-  ).find()
+  const treatmentPlans = await TreatmentPlanModel.find()
 
   res.json({
     success: true,
@@ -30,16 +23,11 @@ export const getTratamientPlans = async (req: Request, res: Response) => {
 export const postTratamientPlan = async (req: Request, res: Response) => {
   const body = req.body
 
-  const treatmentPlan = await MongoDataSource.getRepository(
-    TreatmentPlan
-  ).create(body)
-  const results = await MongoDataSource.getRepository(TreatmentPlan).save(
-    treatmentPlan
-  )
+  const treatmentPlan = await TreatmentPlanModel.create(body)
 
-  res.json({
-    msg: 'crear tratamient',
-    data: results,
+  res.status(201).json({
+    success: true,
+    data: treatmentPlan,
   })
 }
 
@@ -50,7 +38,6 @@ export const putTratamientPlan = (req: Request, res: Response) => {
   res.json({
     msg: 'actualizar tratamiento',
     id,
-    body,
   })
 }
 

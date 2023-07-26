@@ -1,7 +1,7 @@
 import express, { Application } from 'express'
+import * as mongoose from 'mongoose'
 import tratamientPlanRouter from '../routes/treatment-plan'
 import cors from 'cors'
-import { MongoDataSource } from '../data-source'
 
 export default class Server {
   private app: Application
@@ -14,19 +14,32 @@ export default class Server {
     this.app = express()
     this.port = process.env.PORT || '8000'
 
-    this.connectToDatabase()
-
     this.middlewares()
 
     this.routes()
   }
 
-  connectToDatabase() {
-    MongoDataSource.initialize()
-      .then(() => console.debug('Data Source has been initialized!'))
-      .catch((error) =>
-        console.error(`Error during Data Source initilization ${error}`)
-      )
+  async connectToDatabase() {
+    const mongoseInstance: mongoose.Mongoose = mongoose
+
+    console.log('Connecting to database')
+
+    const username = encodeURIComponent(process.env.USER_MONGO ?? 'manageruser')
+    const password = encodeURIComponent(
+      process.env.PASSWORD_MONGO ?? 'IdXIl8BwmdFYoa41'
+    )
+
+    const url = `mongodb+srv://${username}:${password}@cluster0.c5tyaio.mongodb.net/?retryWrites=true&w=majority`
+
+    await mongoose.connect(url, { dbName: 'manager-system-dentist' })
+
+    console.log('Connected to database')
+
+    return mongoseInstance.connection
+  }
+
+  async disconnect() {
+    await mongoose.disconnect()
   }
 
   middlewares() {
@@ -44,8 +57,12 @@ export default class Server {
   }
 
   listen() {
-    this.app.listen(this.port, () => {
-      console.log(`Server is started on ${this.port} 😎🚀`)
-    })
+    this.connectToDatabase()
+      .then(() => {
+        this.app.listen(this.port, () => {
+          console.log(`Server is started on ${this.port} 😎🚀`)
+        })
+      })
+      .catch((error) => console.error(`Error to connecting to dabase ${error}`))
   }
 }
