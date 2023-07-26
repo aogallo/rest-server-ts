@@ -26,8 +26,6 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
 
     const treatmentPlan = await TreatmentPlanModel.create(body)
 
-    console.error('error', treatmentPlan)
-
     res.status(201).json({
       success: true,
       data: treatmentPlan,
