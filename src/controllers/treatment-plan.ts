@@ -21,14 +21,21 @@ export const getTratamientPlans = async (req: Request, res: Response) => {
 }
 
 export const postTratamientPlan = async (req: Request, res: Response) => {
-  const body = req.body
+  try {
+    const body = req.body
 
-  const treatmentPlan = await TreatmentPlanModel.create(body)
+    const treatmentPlan = await TreatmentPlanModel.create(body)
 
-  res.status(201).json({
-    success: true,
-    data: treatmentPlan,
-  })
+    console.error('error', treatmentPlan)
+
+    res.status(201).json({
+      success: true,
+      data: treatmentPlan,
+    })
+  } catch (error) {
+    console.log('error', error)
+    res.status(500).json({ success: false, data: null })
+  }
 }
 
 export const putTratamientPlan = (req: Request, res: Response) => {

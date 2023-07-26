@@ -9,5 +9,11 @@ You need to configure the following env variables:
 
 ## Available scripts
 
-`yarn dev`
+### `yarn dev`
 Run the server locally
+
+### `yarn build`
+Create the bundle for producction
+
+### `yarn start`
+Start the server for producction

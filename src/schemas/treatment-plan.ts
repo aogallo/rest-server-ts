@@ -1,4 +1,9 @@
-import { getModelForClass, prop, modelOptions } from '@typegoose/typegoose'
+import {
+  getModelForClass,
+  prop,
+  index,
+  modelOptions,
+} from '@typegoose/typegoose'
 
 @modelOptions({
   options: { customName: 'treatment_plans' },
@@ -6,11 +11,12 @@ import { getModelForClass, prop, modelOptions } from '@typegoose/typegoose'
     timestamps: true,
   },
 })
+@index({ name: 1 }, { unique: true })
 export class TreatmentPlan {
   @prop()
   id: string
 
-  @prop({ required: true, unique: true })
+  @prop({ required: true })
   name!: string
 }
 
