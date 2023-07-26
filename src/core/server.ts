@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import tratamientPlanRouter from '../routes/treatment-plan'
 import cors from 'cors'
+import { MongoDataSource } from '../data-source'
 
 export default class Server {
   private app: Application
@@ -13,9 +14,19 @@ export default class Server {
     this.app = express()
     this.port = process.env.PORT || '8000'
 
+    this.connectToDatabase()
+
     this.middlewares()
 
     this.routes()
+  }
+
+  connectToDatabase() {
+    MongoDataSource.initialize()
+      .then(() => console.debug('Data Source has been initialized!'))
+      .catch((error) =>
+        console.error(`Error during Data Source initilization ${error}`)
+      )
   }
 
   middlewares() {

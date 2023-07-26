@@ -1,8 +1,8 @@
-import dotenv from 'dotenv'
+import 'dotenv/config'
 import 'reflect-metadata'
 import Server from './core/server'
 
-dotenv.config()
+console.log('port', process.env.PORT)
 
 const server = new Server()
 

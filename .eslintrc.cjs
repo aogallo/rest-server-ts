@@ -6,11 +6,25 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ["./tsconfig.json"],
     tsconfigRootDir: __dirname,
   },
   root: true,
+  rules: {
+    "import/no-unresolved": "error"
+  },
+  settings: {
+    "import/parsers": {
+      "@typescript-eslint-parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  }
 };
