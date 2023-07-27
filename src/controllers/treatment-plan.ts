@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { TreatmentPlanModel } from '../schemas/treatment-plan'
+import { TreatmentPlan, TreatmentPlanModel } from '../schemas/treatment-plan'
 
 export const getTratamientPlan = async (req: Request, res: Response) => {
   try {
@@ -12,7 +12,10 @@ export const getTratamientPlan = async (req: Request, res: Response) => {
       data: treatmentPlan,
     })
   } catch (error) {
-    console.log(`Error to retrieve a treatment plan ${error}`)
+    if (error instanceof Error) {
+      console.log(`Error to retrieve a treatment plan ${error.message}`)
+    }
+
     res.status(500).json({
       success: false,
       data: null,
@@ -28,8 +31,11 @@ export const getTratamientPlans = async (req: Request, res: Response) => {
       success: true,
       data: treatmentPlans,
     })
-  } catch (error) {
-    console.log(`Error to retrieve the treatment plans ${error}`)
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(`Error to retrieve the treatment plans ${error.message}`)
+    }
+
     res.status(500).json({
       success: false,
       data: [],
@@ -39,7 +45,7 @@ export const getTratamientPlans = async (req: Request, res: Response) => {
 
 export const postTratamientPlan = async (req: Request, res: Response) => {
   try {
-    const body = req.body
+    const body = req.body as TreatmentPlan
 
     const treatmentPlan = await TreatmentPlanModel.create(body)
 
@@ -48,35 +54,61 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
       data: treatmentPlan,
     })
   } catch (error) {
-    console.log(`Error to create a treatment plan ${error}`)
+    if (error instanceof Error) {
+      console.log(`Error to create a treatment plan ${error.message}`)
+    }
+
     res.status(500).json({ success: false, data: null })
   }
 }
 
-export const putTratamientPlan = (req: Request, res: Response) => {
+export const putTratamientPlan = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-    const body = req.body
+    const body = req.body as TreatmentPlan
 
-    res.json({
-      msg: 'actualizar tratamiento',
-      id,
-    })
-  } catch (error) {
-    console.log(`Error to update a treatment plan ${error}`)
-    res.status(500).json({ success: false, data: null })
-  }
-}
+    const treatmentPlan = await TreatmentPlanModel.findById(id)
 
-export const deleteTratamientPlan = (req: Request, res: Response) => {
-  try {
-    const { id } = req.params
+    if (treatmentPlan == null) {
+      res.status(400).json({
+        success: false,
+      })
+    }
 
-    res.json({
+    await TreatmentPlanModel.updateOne({ id }, body)
+
+    res.status(304).json({
       success: true,
     })
   } catch (error) {
-    console.log(`Error to delete a treatment plan ${error}`)
+    if (error instanceof Error) {
+      console.log(`Error to update a treatment plan ${error.message}`)
+    }
+
+    res.status(500).json({ success: false, data: null })
+  }
+}
+
+export const deleteTratamientPlan = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+
+    const treatmentPlan = await TreatmentPlanModel.findById(id)
+
+    if (treatmentPlan == null) {
+      res.status(400).json({
+        success: false,
+      })
+    }
+
+    res.status(204).json({
+      success: true,
+    })
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`Error to delete a treatment plan ${error.message}`)
+    }
+
     res.status(500).json({ success: false })
   }
 }
