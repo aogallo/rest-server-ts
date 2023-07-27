@@ -2,22 +2,39 @@ import { Request, Response } from 'express'
 import { TreatmentPlanModel } from '../schemas/treatment-plan'
 
 export const getTratamientPlan = async (req: Request, res: Response) => {
-  const { id } = req.params
-  const treatmentPlan = await TreatmentPlanModel.findById(id)
+  try {
+    const { id } = req.params
 
-  res.json({
-    success: true,
-    data: treatmentPlan,
-  })
+    const treatmentPlan = await TreatmentPlanModel.findById(id)
+
+    res.json({
+      success: true,
+      data: treatmentPlan,
+    })
+  } catch (error) {
+    console.log(`Error to retrieve a treatment plan ${error}`)
+    res.status(500).json({
+      success: false,
+      data: null,
+    })
+  }
 }
 
 export const getTratamientPlans = async (req: Request, res: Response) => {
-  const treatmentPlans = await TreatmentPlanModel.find()
+  try {
+    const treatmentPlans = await TreatmentPlanModel.find()
 
-  res.json({
-    success: true,
-    data: treatmentPlans,
-  })
+    res.json({
+      success: true,
+      data: treatmentPlans,
+    })
+  } catch (error) {
+    console.log(`Error to retrieve the treatment plans ${error}`)
+    res.status(500).json({
+      success: false,
+      data: [],
+    })
+  }
 }
 
 export const postTratamientPlan = async (req: Request, res: Response) => {
@@ -31,26 +48,35 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
       data: treatmentPlan,
     })
   } catch (error) {
-    console.log('error', error)
+    console.log(`Error to create a treatment plan ${error}`)
     res.status(500).json({ success: false, data: null })
   }
 }
 
 export const putTratamientPlan = (req: Request, res: Response) => {
-  const { id } = req.params
-  const body = req.body
+  try {
+    const { id } = req.params
+    const body = req.body
 
-  res.json({
-    msg: 'actualizar tratamiento',
-    id,
-  })
+    res.json({
+      msg: 'actualizar tratamiento',
+      id,
+    })
+  } catch (error) {
+    console.log(`Error to update a treatment plan ${error}`)
+    res.status(500).json({ success: false, data: null })
+  }
 }
 
 export const deleteTratamientPlan = (req: Request, res: Response) => {
-  const { id } = req.params
+  try {
+    const { id } = req.params
 
-  res.json({
-    msg: 'eliminar tratamiento',
-    id,
-  })
+    res.json({
+      success: true,
+    })
+  } catch (error) {
+    console.log(`Error to delete a treatment plan ${error}`)
+    res.status(500).json({ success: false })
+  }
 }

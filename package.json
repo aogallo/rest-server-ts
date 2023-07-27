@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn ./src/main.ts",
     "start": "node build/main.js",
-    "build": "tsc",
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
