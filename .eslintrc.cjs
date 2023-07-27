@@ -15,7 +15,13 @@ module.exports = {
   ignorePatterns: ["./build/**/*.js"],
   root: true,
   rules: {
-    "import/no-unresolved": "error"
+    "import/no-unresolved": "error",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
   },
   settings: {
     "import/parsers": {
