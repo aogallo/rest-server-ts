@@ -12,6 +12,7 @@ module.exports = {
     project: ["./tsconfig.json"],
     tsconfigRootDir: __dirname,
   },
+  ignorePatterns: ["./build/**/*.js"],
   root: true,
   rules: {
     "import/no-unresolved": "error"

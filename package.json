@@ -11,9 +11,10 @@
     "mongodb"
   ],
   "scripts": {
+    "build": "tsc",
     "dev": "ts-node-dev --respawn ./src/main.ts",
-    "start": "node build/main.js",
-    "build": "tsc"
+    "lint": "eslint .",
+    "start": "node build/main.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
