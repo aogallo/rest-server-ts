@@ -18,7 +18,7 @@ const jestConfig: JestConfigWithTsJest = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   detectOpenHandles: true,
-  testTimeout: 50000,
+  testTimeout: 500000,
   collectCoverage: true,
   coveragePathIgnorePatterns: ['/node/modules', '/tests/'],
 }

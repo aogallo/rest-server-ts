@@ -70,16 +70,15 @@ export const putTratamientPlan = async (req: Request, res: Response) => {
     const treatmentPlan = await TreatmentPlanModel.findById(id)
 
     if (treatmentPlan == null) {
-      res.status(400).json({
+      return res.status(404).json({
         success: false,
+        message: 'Usuario no encontrado',
       })
     }
 
-    await TreatmentPlanModel.updateOne({ id }, body)
+    await TreatmentPlanModel.findByIdAndUpdate(id, body)
 
-    res.status(304).json({
-      success: true,
-    })
+    res.status(204).send()
   } catch (error) {
     if (error instanceof Error) {
       console.log(`Error to update a treatment plan ${error.message}`)
@@ -96,14 +95,15 @@ export const deleteTratamientPlan = async (req: Request, res: Response) => {
     const treatmentPlan = await TreatmentPlanModel.findById(id)
 
     if (treatmentPlan == null) {
-      res.status(400).json({
+      return res.status(404).json({
         success: false,
+        message: 'Usuario no encontrado',
       })
     }
 
-    res.status(204).json({
-      success: true,
-    })
+    await TreatmentPlanModel.findByIdAndDelete(id)
+
+    res.status(204).send()
   } catch (error) {
     if (error instanceof Error) {
       console.log(`Error to delete a treatment plan ${error.message}`)
