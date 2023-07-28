@@ -23,7 +23,7 @@ export const getTratamientPlan = async (req: Request, res: Response) => {
   }
 }
 
-export const getTratamientPlans = async (req: Request, res: Response) => {
+export const getTratamientPlans = async (_req: Request, res: Response) => {
   try {
     const treatmentPlans = await TreatmentPlanModel.find()
 

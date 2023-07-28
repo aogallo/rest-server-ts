@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn ./src/main.ts",
-    "test": "NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test node -r dotenv/config $(which jest)",
     "lint": "eslint .",
     "start": "node build/main.js"
   },
@@ -21,6 +21,7 @@
     "@types/cors": "2.8.13",
     "@types/express": "4.17.17",
     "@types/jest": "29.5.3",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
     "eslint": "8.45.0",

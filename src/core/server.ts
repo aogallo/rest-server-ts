@@ -6,8 +6,9 @@ import cors from 'cors'
 export default class Server {
   private app: Application
   private port: string
+  private prefix = '/api/'
   private apiPaths = {
-    tratamientPlan: '/api/treatment-plan',
+    tratamientPlan: `${this.prefix}treatment-plan`,
   }
 
   constructor() {
@@ -20,24 +21,28 @@ export default class Server {
   }
 
   async connectToDatabase() {
-    const mongoseInstance: mongoose.Mongoose = mongoose
-
     console.log('Connecting to database')
 
     const username = encodeURIComponent(process.env.USER_MONGO as string)
     const password = encodeURIComponent(process.env.PASSWORD_MONGO as string)
 
+    let testConnection
+
     const url = `mongodb+srv://${username}:${password}@cluster0.c5tyaio.mongodb.net/?retryWrites=true&w=majority`
 
     if (process.env.NODE_ENV === 'test') {
-      await mongoose.connect(url, { dbName: 'manager-system-dentist-test' })
+      testConnection = await mongoose.connect(url, {
+        dbName: 'manager-system-dentist-test',
+      })
     } else {
-      await mongoose.connect(url, { dbName: 'manager-system-dentist' })
+      testConnection = await mongoose.connect(url, {
+        dbName: 'manager-system-dentist',
+      })
     }
 
     console.log('Connected to database')
 
-    return mongoseInstance.connection
+    return testConnection.connection
   }
 
   async disconnect() {
@@ -66,5 +71,9 @@ export default class Server {
         })
       })
       .catch((error) => console.error(`Error to connecting to dabase ${error}`))
+  }
+
+  getApp() {
+    return this.app
   }
 }

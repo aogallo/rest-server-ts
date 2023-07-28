@@ -8,14 +8,19 @@ const jestConfig: JestConfigWithTsJest = {
   // modulePaths: [compilerOptions.baseUrl],
   // moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   moduleNameMapper: {
-    '^@controllers/(.*)$': ['./src/controllers/$1'],
-    '^@core/(.*)$': ['./src/core/$1'],
-    '^@entities/(.*)$': ['./src/entities/$1'],
-    '^@routes/(.*)$': ['./src/routes/$1'],
+    '@controllers/(.*)$': ['<rootDir>/src/controllers/$1'],
+    '@core/(.*)$': ['<rootDir>/src/core/$1'],
+    '@entities/(.*)$': ['<rootDir>/src/entities/$1'],
+    '@routes/(.*)$': ['<rootDir>/src/routes/$1'],
+    '@schemas/(.*)$': ['<rootDir>/src/schemas/$1'],
   },
   verbose: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
+  detectOpenHandles: true,
+  testTimeout: 50000,
+  collectCoverage: true,
+  coveragePathIgnorePatterns: ['/node/modules', '/tests/'],
 }
 
 export default jestConfig
