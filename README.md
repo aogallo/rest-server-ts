@@ -17,3 +17,6 @@ Create the bundle for producction
 
 ### `yarn start`
 Start the server for producction
+
+### `yarn lint`
+RUn eslint to check the code

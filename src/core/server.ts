@@ -24,14 +24,16 @@ export default class Server {
 
     console.log('Connecting to database')
 
-    const username = encodeURIComponent(process.env.USER_MONGO ?? 'manageruser')
-    const password = encodeURIComponent(
-      process.env.PASSWORD_MONGO ?? 'IdXIl8BwmdFYoa41'
-    )
+    const username = encodeURIComponent(process.env.USER_MONGO as string)
+    const password = encodeURIComponent(process.env.PASSWORD_MONGO as string)
 
     const url = `mongodb+srv://${username}:${password}@cluster0.c5tyaio.mongodb.net/?retryWrites=true&w=majority`
 
-    await mongoose.connect(url, { dbName: 'manager-system-dentist' })
+    if (process.env.NODE_ENV === 'test') {
+      await mongoose.connect(url, { dbName: 'manager-system-dentist-test' })
+    } else {
+      await mongoose.connect(url, { dbName: 'manager-system-dentist' })
+    }
 
     console.log('Connected to database')
 
