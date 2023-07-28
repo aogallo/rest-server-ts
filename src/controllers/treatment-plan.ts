@@ -7,6 +7,13 @@ export const getTratamientPlan = async (req: Request, res: Response) => {
 
     const treatmentPlan = await TreatmentPlanModel.findById(id)
 
+    if (treatmentPlan == null) {
+      return res.status(404).json({
+        success: false,
+        message: 'No exite el plan de tratamiento',
+      })
+    }
+
     res.json({
       success: true,
       data: treatmentPlan,
