@@ -1,7 +1,9 @@
 import express, { Application } from 'express'
-import * as mongoose from 'mongoose'
-import tratamientPlanRouter from '../routes/treatment-plan'
 import cors from 'cors'
+import * as mongoose from 'mongoose'
+
+import tratamientPlanRouter from '../routes/treatment-plan'
+import loginRouter from '../routes/login'
 
 export default class Server {
   private app: Application
@@ -9,6 +11,8 @@ export default class Server {
   private prefix = '/api/'
   private apiPaths = {
     tratamientPlan: `${this.prefix}treatment-plan`,
+    user: `${this.prefix}user`,
+    login: `${this.prefix}login`,
   }
 
   constructor() {
@@ -61,6 +65,7 @@ export default class Server {
 
   routes() {
     this.app.use(this.apiPaths.tratamientPlan, tratamientPlanRouter)
+    this.app.use(this.apiPaths.login, loginRouter)
   }
 
   listen() {

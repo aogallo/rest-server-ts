@@ -1,2 +1,4 @@
-import { Request } from 'express'
-export interface RequestCustom extends Request {}
+export interface LoginType {
+  username: string
+  password: string
+}

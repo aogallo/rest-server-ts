@@ -37,9 +37,6 @@
       "@core/*": [
         "./src/core/*"
       ],
-      "@entities/*": [
-        "./src/entities/*"
-      ],
       "@routes/*": [
         "./src/routes/*"
       ],
