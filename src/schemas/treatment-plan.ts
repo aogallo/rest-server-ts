@@ -4,6 +4,7 @@ import {
   index,
   modelOptions,
 } from '@typegoose/typegoose'
+import { Expose, Transform } from 'class-transformer'
 
 @modelOptions({
   options: { customName: 'treatment_plans' },
@@ -13,6 +14,11 @@ import {
 })
 @index({ name: 1 }, { unique: true })
 export class TreatmentPlan {
+  @Expose()
+  @Transform((value) => {
+    console.log('value', value)
+    return value.value
+  })
   @prop()
   id: string
 

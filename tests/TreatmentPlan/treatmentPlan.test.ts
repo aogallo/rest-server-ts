@@ -1,7 +1,8 @@
 import Server from '@core/server'
-import { TreatmentPlan } from '@schemas/treatment-plan'
 import { Connection } from 'mongoose'
 import supertest, { SuperAgentTest } from 'supertest'
+
+import { TreatmentPlan } from '@schemas/treatment-plan'
 
 let server: Server
 let connection: Connection
@@ -22,7 +23,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  await connection.dropCollection('treatment_plans')
+  // await connection.dropCollection('treatment_plans')
   await server.disconnect()
 })
 

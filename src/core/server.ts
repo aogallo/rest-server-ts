@@ -1,9 +1,11 @@
 import express, { Application } from 'express'
 import cors from 'cors'
 import * as mongoose from 'mongoose'
+import morgan from 'morgan'
 
 import loginRouter from '@routes/login'
 import tratamientPlanRouter from '@routes/treatment-plan'
+import customerRouter from '@routes/customer'
 
 export default class Server {
   private app: Application
@@ -13,6 +15,7 @@ export default class Server {
     tratamientPlan: `${this.prefix}treatment-plan`,
     user: `${this.prefix}user`,
     login: `${this.prefix}login`,
+    customer: `${this.prefix}customer`,
   }
 
   constructor() {
@@ -61,11 +64,13 @@ export default class Server {
     this.app.use(express.json())
 
     //public folder
+    this.app.use(morgan('tiny'))
   }
 
   routes() {
     this.app.use(this.apiPaths.tratamientPlan, tratamientPlanRouter)
     this.app.use(this.apiPaths.login, loginRouter)
+    this.app.use(this.apiPaths.customer, customerRouter)
   }
 
   listen() {
