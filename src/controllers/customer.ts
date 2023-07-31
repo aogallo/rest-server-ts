@@ -4,7 +4,7 @@ import { CustomerModel } from '@schemas/customer'
 
 export const getCustomer = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body
+    const { id } = req.params
     const customer = CustomerModel.findById(id)
 
     if (customer == null) {
