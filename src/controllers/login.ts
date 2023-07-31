@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { Request, Response } from 'express'
 
-import { LoginType } from '@types'
+import { LoginType } from '@src/types'
 import { UserModel } from '@schemas/user'
 
 export const login = async (req: Request, res: Response) => {

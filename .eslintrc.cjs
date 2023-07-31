@@ -56,7 +56,7 @@ module.exports = {
             "./src/core"
           ],
           [
-            "@",
+            "@src",
             "./src"
           ]
 

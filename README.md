@@ -22,3 +22,38 @@ Start the server for producction
 
 ### `yarn lint`
 RUn eslint to check the code
+
+## Configure custom paths
+
+* Add the custom path to the tsconfig configuration
+Example:
+```json
+{
+    "paths": {
+        "<custom_path_name/*": ["<path>/*"]
+    }
+}
+
+```
+
+* Add the custom path to the babel configuration
+Example:
+```json
+{
+    "alias": {
+      "@controllers": "./src/controllers",
+    }
+}
+
+```
+
+* Add the custom path to the eslint configuration
+Example:
+
+```json
+"map": [
+  [
+    "@routes",
+    "./src/routes"
+  ],
+```
