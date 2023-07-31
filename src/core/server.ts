@@ -2,8 +2,8 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import * as mongoose from 'mongoose'
 
-import tratamientPlanRouter from '../routes/treatment-plan'
-import loginRouter from '../routes/login'
+import loginRouter from '@routes/login'
+import tratamientPlanRouter from '@routes/treatment-plan'
 
 export default class Server {
   private app: Application

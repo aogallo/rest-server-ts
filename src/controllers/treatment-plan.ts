@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { TreatmentPlan, TreatmentPlanModel } from '../schemas/treatment-plan'
+
+import { TreatmentPlan, TreatmentPlanModel } from '@schemas/treatment-plan'
 
 export const getTratamientPlan = async (req: Request, res: Response) => {
   try {

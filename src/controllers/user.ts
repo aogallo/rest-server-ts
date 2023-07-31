@@ -1,4 +1,5 @@
 import { Response, Request } from 'express'
+
 import { UserModel } from '@schemas/user'
 
 export const createUser = async (req: Request, res: Response) => {

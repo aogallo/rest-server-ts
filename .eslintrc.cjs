@@ -54,7 +54,12 @@ module.exports = {
           [
             "@core",
             "./src/core"
+          ],
+          [
+            "@",
+            "./src"
           ]
+
         ]
       }
     }

@@ -1,11 +1,12 @@
 import { Router } from 'express'
+
 import {
   deleteTratamientPlan,
   getTratamientPlan,
   getTratamientPlans,
   postTratamientPlan,
   putTratamientPlan,
-} from '../controllers/treatment-plan'
+} from '@controllers/treatment-plan'
 
 const tratamientPlanRouter = Router()
 

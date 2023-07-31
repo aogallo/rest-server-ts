@@ -5,7 +5,9 @@ This project is in charge to manager all the request from the management system 
 You need to configure the following env variables:
 
 * PORT -> It's mean the port where the application will receive all requests
-
+* MONGO_URI -> Mongo URL to connect
+* USER_MONGO -> User to connect to mongo database
+* PASSWORD_MONGO -> Password user
 
 ## Available scripts
 

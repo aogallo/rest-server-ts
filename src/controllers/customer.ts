@@ -1,5 +1,6 @@
-import { CustomerModel } from '@schemas/customer'
 import { Request, Response } from 'express'
+
+import { CustomerModel } from '@schemas/customer'
 
 export const getCustomer = async (req: Request, res: Response) => {
   try {
