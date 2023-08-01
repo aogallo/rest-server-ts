@@ -44,4 +44,17 @@ describe.only('Customer Test /customer', () => {
     expect(res.body.data).toMatchObject(customerTest)
     expect(res.statusCode).toEqual(200)
   })
+
+  it('POST: Create a customer to be response 200', async () => {
+    const customer: Customer = {
+      id: '',
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      address: faker.location.direction(),
+      phone: faker.phone.number(),
+    }
+    const res = await agent.post(baseRoute).send(customer)
+    customer.id = res.body.data.id
+    expect(res.statusCode).toEqual(200)
+  })
 })
