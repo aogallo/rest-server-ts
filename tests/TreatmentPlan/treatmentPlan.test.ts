@@ -19,7 +19,7 @@ beforeAll(async () => {
   connection = await server.connectToDatabase()
   await connection.dropCollection('treatment_plans')
   const res = await agent.post(baseRoute).send(treatmentPlanTest)
-  treatmentPlanTest.id = res.body.data._id
+  treatmentPlanTest.id = res.body.data.id
 })
 
 afterAll(async () => {
@@ -42,7 +42,7 @@ describe('Treatment Plan Test /treatment-plan', () => {
   it('POST: Create a treatment plan to be response 201', async () => {
     const res = await agent.post(baseRoute).send(treatmentPlan)
 
-    treatmentPlan.id = res.body.data._id
+    treatmentPlan.id = res.body.data.id
 
     expect(res.statusCode).toBe(201)
   })

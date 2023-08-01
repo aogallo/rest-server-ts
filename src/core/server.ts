@@ -63,8 +63,11 @@ export default class Server {
     // Parser body
     this.app.use(express.json())
 
-    //public folder
-    this.app.use(morgan('tiny'))
+    //morgan route logger
+    this.app.use(
+      morgan('tiny', { skip: (_req, _res) => process.env.NODE_ENV === 'test' })
+    )
+    // app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' }));
   }
 
   routes() {

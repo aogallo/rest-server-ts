@@ -10,6 +10,14 @@ import { Expose, Transform } from 'class-transformer'
   options: { customName: 'treatment_plans' },
   schemaOptions: {
     timestamps: true,
+    toJSON: {
+      transform: (_doc, ret) => {
+        ret.id = ret._id
+        delete ret._id
+        delete ret.__v
+        return ret
+      },
+    },
   },
 })
 @index({ name: 1 }, { unique: true })

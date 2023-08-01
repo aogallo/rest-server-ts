@@ -1,5 +1,18 @@
-import { getModelForClass, prop } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
 
+@modelOptions({
+  schemaOptions: {
+    timestamps: true,
+    toJSON: {
+      transform: (_doc, ret) => {
+        ret.id = ret._id
+        delete ret._id
+        delete ret.__v
+        return ret
+      },
+    },
+  },
+})
 export class User {
   @prop()
   id: string
