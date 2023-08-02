@@ -1,7 +1,11 @@
 import { Request, Response } from 'express'
+import _ from 'lodash'
 
 import { Customer, CustomerModel } from '@schemas/customer'
-import { customerValidator } from '@validators/customer'
+import {
+  createCustomerValidator,
+  updateCustomerValidator,
+} from '@validators/customer'
 
 export const getCustomer = async (req: Request, res: Response) => {
   try {
@@ -50,7 +54,7 @@ export const postCustomer = async (req: Request, res: Response) => {
   try {
     const customer = req.body as Customer
 
-    const validator = customerValidator.safeParse(customer)
+    const validator = createCustomerValidator.safeParse(customer)
 
     if (!validator.success) {
       return res
@@ -92,7 +96,13 @@ export const putCustomer = async (req: Request, res: Response) => {
     const { id } = req.params
     const customer = req.body as Customer
 
-    const validator = customerValidator.safeParse(customer)
+    if (_.isEmpty(customer)) {
+      return res
+        .status(400)
+        .json({ success: false, error: 'No hay data que actualizar' })
+    }
+
+    const validator = updateCustomerValidator.safeParse(customer)
 
     if (!validator.success) {
       return res
