@@ -24,10 +24,9 @@ export const getTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to retrieve a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({
-      success: false,
-      data: null,
-    })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -44,10 +43,9 @@ export const getTratamientPlans = async (_req: Request, res: Response) => {
       console.log(`Error to retrieve the treatment plans ${error.message}`)
     }
 
-    res.status(500).json({
-      success: false,
-      data: [],
-    })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -66,7 +64,9 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to create a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false, data: null })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -92,7 +92,9 @@ export const putTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to update a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false, data: null })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -117,6 +119,8 @@ export const deleteTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to delete a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
