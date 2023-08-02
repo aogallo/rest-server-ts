@@ -56,6 +56,10 @@ module.exports = {
             "./src/core"
           ],
           [
+            "@validators",
+            "./src/validators"
+          ],
+          [
             "@src",
             "./src"
           ]

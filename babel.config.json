@@ -28,6 +28,7 @@
           "@core": "./src/core",
           "@routes": "./src/routes",
           "@schemas": "./src/schemas",
+          "@validators": "./src/validators",
           "@src": "./src"
         }
       }

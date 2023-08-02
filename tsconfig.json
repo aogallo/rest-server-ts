@@ -48,6 +48,9 @@
       "@schemas/*": [
         "./src/schemas/*"
       ],
+      "@validators/*": [
+        "./src/validators/*"
+      ],
       "@src/*": [
         "./src/*"
       ]

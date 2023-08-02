@@ -13,6 +13,8 @@ const jestConfig: JestConfigWithTsJest = {
     '@entities/(.*)$': ['<rootDir>/src/entities/$1'],
     '@routes/(.*)$': ['<rootDir>/src/routes/$1'],
     '@schemas/(.*)$': ['<rootDir>/src/schemas/$1'],
+    '@validators/(.*)$': ['<rootDir>/src/validators/$1'],
+    '@src/(.*)$': ['<rootDir>/src/$1'],
   },
   verbose: true,
   preset: 'ts-jest',

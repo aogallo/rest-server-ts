@@ -57,4 +57,12 @@ describe.only('Customer Test /customer', () => {
     customer.id = res.body.data.id
     expect(res.statusCode).toEqual(200)
   })
+
+  it('PUT: Update a customer to be response 200', async () => {
+    customerTest.name = faker.person.fullName()
+
+    const res = await agent.put(`${baseRoute}/${customerTest.id}`)
+
+    expect(res.statusCode).toBe(204)
+  })
 })

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { Customer, CustomerModel } from '@schemas/customer'
-import { customerValidator } from '@src/validators/customer'
+import { customerValidator } from '@validators/customer'
 
 export const getCustomer = async (req: Request, res: Response) => {
   try {
@@ -132,9 +132,9 @@ export const putCustomer = async (req: Request, res: Response) => {
         .json({ success: false, error: 'El nombre o correo ya existe' })
     }
 
-    const customerUpdated = await CustomerModel.findByIdAndUpdate(id, customer)
+    await CustomerModel.findByIdAndUpdate(id, customer)
 
-    res.json({ success: true, data: customerUpdated })
+    res.status(204).send()
   } catch (error) {
     if (error instanceof Error) {
       console.log(`Error to retrieve a customer ${error.message}`)
