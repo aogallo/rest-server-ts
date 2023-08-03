@@ -62,7 +62,12 @@ export default class Server {
     this.app.disable('x-powered-by')
 
     //CORS
-    this.app.use(cors({}))
+    this.app.use(
+      cors({
+        origin: ['http://localhost:8000'],
+        methods: 'GET,PUT,POST,DELETE',
+      })
+    )
 
     // Parser body
     this.app.use(express.json())
