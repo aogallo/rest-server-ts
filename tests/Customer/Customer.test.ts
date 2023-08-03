@@ -77,4 +77,10 @@ describe.only('Customer Test /customer', () => {
 
     expect(res.statusCode).toBe(400)
   })
+
+  it.only('DELETE: Delete a customer to be response 200', async () => {
+    const res = await agent.delete(`${baseRoute}/${customerTest.id}`)
+
+    expect(res.statusCode).toBe(204)
+  })
 })
