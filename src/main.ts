@@ -1,5 +1,7 @@
 import 'dotenv/config'
-import Server from './core/server'
+import 'reflect-metadata'
+
+import Server from '@core/server'
 
 const server = new Server()
 

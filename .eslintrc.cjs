@@ -32,7 +32,40 @@ module.exports = {
       "typescript": {
         "alwaysTryTypes": true,
         "project": "./tsconfig.json"
+      },
+      "alias": {
+        "extensions": [
+          ".js",
+          ".ts"
+        ],
+        "map": [
+          [
+            "@routes",
+            "./src/routes"
+          ],
+          [
+            "@schemas",
+            "./src/schemas"
+          ],
+          [
+            "@controllers",
+            "./src/controllers"
+          ],
+          [
+            "@core",
+            "./src/core"
+          ],
+          [
+            "@validators",
+            "./src/validators"
+          ],
+          [
+            "@src",
+            "./src"
+          ]
+
+        ]
       }
     }
   }
-};
+}

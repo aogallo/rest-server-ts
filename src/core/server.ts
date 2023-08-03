@@ -1,7 +1,12 @@
 import express, { Application } from 'express'
-import * as mongoose from 'mongoose'
-import tratamientPlanRouter from '../routes/treatment-plan'
 import cors from 'cors'
+import * as mongoose from 'mongoose'
+import morgan from 'morgan'
+import helmet from 'helmet'
+
+import loginRouter from '@routes/login'
+import tratamientPlanRouter from '@routes/treatment-plan'
+import customerRouter from '@routes/customer'
 
 export default class Server {
   private app: Application
@@ -9,6 +14,9 @@ export default class Server {
   private prefix = '/api/'
   private apiPaths = {
     tratamientPlan: `${this.prefix}treatment-plan`,
+    user: `${this.prefix}user`,
+    login: `${this.prefix}login`,
+    customer: `${this.prefix}customer`,
   }
 
   constructor() {
@@ -50,17 +58,33 @@ export default class Server {
   }
 
   middlewares() {
+    //disable x-powered-by
+    this.app.disable('x-powered-by')
+
     //CORS
-    this.app.use(cors({}))
+    this.app.use(
+      cors({
+        origin: ['http://localhost:8000'],
+        methods: 'GET,PUT,POST,DELETE',
+      })
+    )
 
     // Parser body
     this.app.use(express.json())
 
-    //public folder
+    //morgan route logger
+    this.app.use(
+      morgan('tiny', { skip: () => process.env.NODE_ENV === 'test' })
+    )
+
+    // helmet for save applicaton for some vulnerabilities
+    this.app.use(helmet())
   }
 
   routes() {
     this.app.use(this.apiPaths.tratamientPlan, tratamientPlanRouter)
+    this.app.use(this.apiPaths.login, loginRouter)
+    this.app.use(this.apiPaths.customer, customerRouter)
   }
 
   listen() {

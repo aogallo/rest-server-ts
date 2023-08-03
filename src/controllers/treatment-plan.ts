@@ -1,11 +1,19 @@
 import { Request, Response } from 'express'
-import { TreatmentPlan, TreatmentPlanModel } from '../schemas/treatment-plan'
+
+import { TreatmentPlan, TreatmentPlanModel } from '@schemas/treatment-plan'
 
 export const getTratamientPlan = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
     const treatmentPlan = await TreatmentPlanModel.findById(id)
+
+    if (treatmentPlan == null) {
+      return res.status(404).json({
+        success: false,
+        message: 'No exite el plan de tratamiento',
+      })
+    }
 
     res.json({
       success: true,
@@ -16,10 +24,9 @@ export const getTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to retrieve a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({
-      success: false,
-      data: null,
-    })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -36,10 +43,9 @@ export const getTratamientPlans = async (_req: Request, res: Response) => {
       console.log(`Error to retrieve the treatment plans ${error.message}`)
     }
 
-    res.status(500).json({
-      success: false,
-      data: [],
-    })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -58,7 +64,9 @@ export const postTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to create a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false, data: null })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -84,7 +92,9 @@ export const putTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to update a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false, data: null })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }
 
@@ -109,6 +119,8 @@ export const deleteTratamientPlan = async (req: Request, res: Response) => {
       console.log(`Error to delete a treatment plan ${error.message}`)
     }
 
-    res.status(500).json({ success: false })
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
   }
 }

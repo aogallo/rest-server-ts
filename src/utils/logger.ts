@@ -1,9 +1,9 @@
 export default class Logger {
-  info(params) {
+  info(params: string) {
     console.info(params)
   }
 
-  error(params) {
+  error(params: string) {
     console.error(params)
   }
 }
