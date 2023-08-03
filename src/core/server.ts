@@ -69,7 +69,7 @@ export default class Server {
 
     //morgan route logger
     this.app.use(
-      morgan('tiny', { skip: (_req, _res) => process.env.NODE_ENV === 'test' })
+      morgan('tiny', { skip: () => process.env.NODE_ENV === 'test' })
     )
 
     // helmet for save applicaton for some vulnerabilities

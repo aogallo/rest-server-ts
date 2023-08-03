@@ -58,14 +58,23 @@ describe.only('Customer Test /customer', () => {
     expect(res.statusCode).toEqual(200)
   })
 
-  it.only('PUT: Update a customer to be response 200', async () => {
+  it('PUT: Update a customer to be response 200', async () => {
     customerTest.name = faker.person.fullName()
 
-    const res = await agent.put(`${baseRoute}/${customerTest.id}`)
-    // .send(customerTest)
+    const res = await agent
+      .put(`${baseRoute}/${customerTest.id}`)
+      .send(customerTest)
 
     console.log(res.body.error)
 
     expect(res.statusCode).toBe(204)
+  })
+
+  it('PUT: Update a customer to be response 400', async () => {
+    customerTest.name = faker.person.fullName()
+
+    const res = await agent.put(`${baseRoute}/${customerTest.id}`)
+
+    expect(res.statusCode).toBe(400)
   })
 })
