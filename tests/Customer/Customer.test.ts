@@ -31,7 +31,7 @@ afterAll(async () => {
   await server.disconnect()
 })
 
-describe.only('Customer Test /customer', () => {
+describe('Customer Test /customer', () => {
   it('GET: Retrieve all customer to be response 200', async () => {
     const res = await agent.get(baseRoute)
     expect(res.body.data).toHaveLength(1)
@@ -78,7 +78,7 @@ describe.only('Customer Test /customer', () => {
     expect(res.statusCode).toBe(400)
   })
 
-  it.only('DELETE: Delete a customer to be response 200', async () => {
+  it('DELETE: Delete a customer to be response 200', async () => {
     const res = await agent.delete(`${baseRoute}/${customerTest.id}`)
 
     expect(res.statusCode).toBe(204)
