@@ -23,7 +23,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  // await connection.dropCollection('treatment_plans')
+  await connection.dropCollection('treatment_plans')
   await server.disconnect()
 })
 
