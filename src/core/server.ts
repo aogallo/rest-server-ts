@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import * as mongoose from 'mongoose'
 import morgan from 'morgan'
+import helmet from 'helmet'
 
 import loginRouter from '@routes/login'
 import tratamientPlanRouter from '@routes/treatment-plan'
@@ -57,6 +58,9 @@ export default class Server {
   }
 
   middlewares() {
+    //disable x-powered-by
+    this.app.disable('x-powered-by')
+
     //CORS
     this.app.use(cors({}))
 
@@ -67,7 +71,9 @@ export default class Server {
     this.app.use(
       morgan('tiny', { skip: (_req, _res) => process.env.NODE_ENV === 'test' })
     )
-    // app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' }));
+
+    // helmet for save applicaton for some vulnerabilities
+    this.app.use(helmet())
   }
 
   routes() {
