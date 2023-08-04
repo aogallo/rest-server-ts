@@ -9,6 +9,8 @@ You need to configure the following env variables in the `.env` file in the root
 * USER_MONGO -> User to connect to mongo database
 * PASSWORD_MONGO -> Password user
 * SECRET -> Secret of json token
+* EXPIRES_IN_PROD -> Expiry of the token in producction
+* EXPIRES_IN_DEV -> Expiry of the token in dev
 
 ## Available scripts
 

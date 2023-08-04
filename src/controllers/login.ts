@@ -53,14 +53,21 @@ export const login = async (req: Request, res: Response) => {
     permissions.concat(role.permissions)
   })
 
-  const userForToken = {
+  const userPayloadForToken = {
     username: user.username,
     id: user._id,
     roles: rolesName,
     permissions,
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET as string)
+  const expiresIn =
+    process.env.NODE_ENV === 'dev'
+      ? process.env.EXPIRES_IN_DEV
+      : process.env.EXPIRES_IN_PROD
+
+  const token = jwt.sign(userPayloadForToken, process.env.SECRET as string, {
+    expiresIn,
+  })
 
   res.status(200).json({
     success: true,
