@@ -2,7 +2,7 @@
 
 This project is in charge to manager all the request from the management system dentist
 
-You need to configure the following env variables:
+You need to configure the following env variables in the `.env` file in the root directory:
 
 * PORT -> It's mean the port where the application will receive all requests
 * MONGO_URI -> Mongo URL to connect
