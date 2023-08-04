@@ -37,7 +37,11 @@ export default class Server {
 
     let testConnection
 
-    const url = `mongodb+srv://${username}:${password}@cluster0.c5tyaio.mongodb.net/?retryWrites=true&w=majority`
+    const url =
+      process.env.MONGO_URI?.replace('username', username).replace(
+        'password',
+        password
+      ) || ''
 
     if (process.env.NODE_ENV === 'test') {
       testConnection = await mongoose.connect(url, {
