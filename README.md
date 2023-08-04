@@ -8,6 +8,7 @@ You need to configure the following env variables:
 * MONGO_URI -> Mongo URL to connect
 * USER_MONGO -> User to connect to mongo database
 * PASSWORD_MONGO -> Password user
+* SECRET -> Secret of json token
 
 ## Available scripts
 
@@ -26,6 +27,7 @@ RUn eslint to check the code
 ## Configure custom paths
 
 * Add the custom path to the tsconfig configuration
+
 Example:
 ```json
 {
@@ -37,6 +39,7 @@ Example:
 ```
 
 * Add the custom path to the babel configuration
+
 Example:
 ```json
 {
@@ -48,6 +51,7 @@ Example:
 ```
 
 * Add the custom path to the eslint configuration
+
 Example:
 
 ```json

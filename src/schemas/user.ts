@@ -5,9 +5,10 @@ import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
     timestamps: true,
     toJSON: {
       transform: (_doc, ret) => {
-        ret.id = ret._id
+        ret.id = ret._id as string
         delete ret._id
         delete ret.__v
+        delete ret.password
         return ret
       },
     },
