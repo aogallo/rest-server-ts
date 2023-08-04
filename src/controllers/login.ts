@@ -25,7 +25,13 @@ export const login = async (req: Request, res: Response) => {
       .json({ success: false, error: validator.error.issues })
   }
 
-  const user = await UserModel.findOne({ username: validator.data.username })
+  const user = await UserModel.findOne({
+    username: validator.data.username,
+  }).populate('roles', {
+    id: 1,
+    name: 1,
+    permissions: 1,
+  })
 
   if (user == null) {
     return res
@@ -50,7 +56,8 @@ export const login = async (req: Request, res: Response) => {
   const roles = user.roles as Role[]
 
   roles.forEach((role: Role) => {
-    permissions.concat(role.permissions)
+    permissions.push(...role.permissions)
+    rolesName.push(role.name)
   })
 
   const userPayloadForToken = {

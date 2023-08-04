@@ -6,26 +6,35 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 //  VERIFICACION DE TOKEN
 //====================================
 export const authToken = (req: Request, res: Response, next: NextFunction) => {
-  const token = (req.headers.authorization?.split('Bearer ')[1] as string) || ''
+  try {
+    const token =
+      (req.headers.authorization?.split('Bearer ')[1] as string) || ''
 
-  if (token == '') {
-    return res.status(401).send()
+    if (token == '') {
+      return res.status(401).send()
+    }
+
+    const verifyToken: jwt.JwtPayload = jwt.verify(
+      token,
+      process.env.SECRET as string
+    ) as JwtPayload
+
+    if (verifyToken.exp != null && Date.now() >= verifyToken.exp * 1000) {
+      return res.status(401).json({
+        success: false,
+      })
+    }
+
+    req.user = verifyToken.user as User
+
+    next()
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`Error to retrieve a customer ${error.message}`)
+    }
+
+    return res.status(401).json({ success: false })
   }
-
-  const verifyToken: jwt.JwtPayload = jwt.verify(
-    token,
-    process.env.SECRET as string
-  ) as JwtPayload
-
-  if (verifyToken.exp != null && Date.now() >= verifyToken.exp * 1000) {
-    return res.status(401).json({
-      success: false,
-    })
-  }
-
-  req.user = verifyToken.user as User
-
-  next()
 }
 
 //====================================
