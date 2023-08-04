@@ -1,4 +1,5 @@
-import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
+import { getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose'
+import { Role } from './role'
 
 @modelOptions({
   schemaOptions: {
@@ -18,7 +19,7 @@ export class User {
   @prop()
   id: string
 
-  @prop({ required: true })
+  @prop({ required: true, index: true })
   username!: string
 
   @prop({ required: true })
@@ -29,6 +30,9 @@ export class User {
 
   @prop({ required: true })
   email: string
+
+  @prop({ ref: () => Role, required: true, index: true })
+  roles: Ref<Role>[]
 }
 
 export const UserModel = getModelForClass(User)

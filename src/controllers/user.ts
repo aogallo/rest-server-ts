@@ -5,54 +5,11 @@ import _ from 'lodash'
 import { User, UserModel } from '@schemas/user'
 import { userValidator } from '@validators/user'
 
-export const createUser = async (req: Request, res: Response) => {
-  try {
-    const body = req.body as User
-
-    const validator = userValidator.safeParse(body)
-
-    if (!validator.success) {
-      return res
-        .status(400)
-        .json({ success: false, error: validator.error.issues })
-    }
-
-    const userByUnDuplicatedValues = await UserModel.findOne({
-      $or: [
-        {
-          email: validator.data.email,
-        },
-        { name: validator.data.name },
-      ],
-    })
-
-    if (userByUnDuplicatedValues != null) {
-      return res
-        .status(400)
-        .json({ success: false, error: 'El nombre o correo ya existe' })
-    }
-
-    validator.data.password = await bcrypt.hash(validator.data.password, 10)
-
-    const user = await UserModel.create(validator.data)
-
-    res.status(201).json({ success: true, data: user })
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(`Error to retrieve a treatment plan ${error.message}`)
-    }
-
-    res
-      .status(500)
-      .json({ success: false, error: 'Comuniquese con su administrador' })
-  }
-}
-
 export const getUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
-    const userData = await UserModel.findById(id)
+    const userData = await UserModel.findById(id).populate('roles')
 
     res.json({ success: true, data: userData })
   } catch (error) {
@@ -67,7 +24,7 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (_req: Request, res: Response) => {
   try {
-    const userData = await UserModel.find()
+    const userData = await UserModel.find().populate('roles')
 
     res.json({ success: true, data: userData })
   } catch (error) {
