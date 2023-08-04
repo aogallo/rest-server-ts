@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { Response, Request } from 'express'
 import _ from 'lodash'
 
@@ -30,6 +31,8 @@ export const createUser = async (req: Request, res: Response) => {
         .status(400)
         .json({ success: false, error: 'El nombre o correo ya existe' })
     }
+
+    validator.data.password = await bcrypt.hash(validator.data.password, 10)
 
     const user = await UserModel.create(validator.data)
 

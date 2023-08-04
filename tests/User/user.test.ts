@@ -31,7 +31,7 @@ afterAll(async () => {
   await server.disconnect()
 })
 
-describe.only('User Test /user', () => {
+describe('User Test /user', () => {
   it('POST: Create a user to be respone 200', async () => {
     const user: User = {
       id: '',
