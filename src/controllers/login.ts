@@ -43,8 +43,9 @@ export const login = async (req: Request, res: Response) => {
       .json({ success: false, message: 'Usuario y password no son correctos' })
   }
 
-  const userForToken = {
+  const userPayloadForToken = {
     username: user.username,
+    name: user.name,
     id: user._id,
   }
 
@@ -53,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
       ? process.env.EXPIRES_IN_DEV
       : process.env.EXPIRES_IN_PROD
 
-  const token = jwt.sign(userForToken, process.env.SECRET as string, {
+  const token = jwt.sign(userPayloadForToken, process.env.SECRET as string, {
     expiresIn,
   })
 

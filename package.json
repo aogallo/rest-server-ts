@@ -21,7 +21,7 @@
     "mongodb"
   ],
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn ./src/main.ts",
+    "dev": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --respawn ./src/main.ts",
     "compile": "tsc",
     "build": "babel ./src --source-maps inline --extensions \".ts\" --out-dir build --copy-files ",
     "test": "NODE_ENV=test node -r dotenv/config $(which jest)",
