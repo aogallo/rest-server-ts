@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import loginRouter from '@routes/login'
 import tratamientPlanRouter from '@routes/treatment-plan'
 import customerRouter from '@routes/customer'
+import userRouter from '@routes/user'
 
 export default class Server {
   private app: Application
@@ -85,6 +86,7 @@ export default class Server {
     this.app.use(this.apiPaths.tratamientPlan, tratamientPlanRouter)
     this.app.use(this.apiPaths.login, loginRouter)
     this.app.use(this.apiPaths.customer, customerRouter)
+    this.app.use(this.apiPaths.user, userRouter)
   }
 
   listen() {
