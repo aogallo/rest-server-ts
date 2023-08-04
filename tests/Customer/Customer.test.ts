@@ -55,7 +55,7 @@ describe('Customer Test /customer', () => {
     }
     const res = await agent.post(baseRoute).send(customer)
     customer.id = res.body.data.id
-    expect(res.statusCode).toEqual(200)
+    expect(res.statusCode).toEqual(201)
   })
 
   it('PUT: Update a customer to be response 200', async () => {
@@ -64,8 +64,6 @@ describe('Customer Test /customer', () => {
     const res = await agent
       .put(`${baseRoute}/${customerTest.id}`)
       .send(customerTest)
-
-    console.log(res.body.error)
 
     expect(res.statusCode).toBe(204)
   })
