@@ -38,7 +38,7 @@ export const createUser = async (req: Request, res: Response) => {
       name: { $in: validator.data.roles },
     })
 
-    if (roles == null) {
+    if (roles.length <= 0) {
       return res
         .status(400)
         .json({ success: false, error: 'El o los roles no existen' })

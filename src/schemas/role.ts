@@ -20,7 +20,7 @@ export class Role {
   @prop({ required: true, index: true })
   name!: string
 
-  @prop()
+  @prop({ type: () => [String] })
   permissions: [string]
 }
 
