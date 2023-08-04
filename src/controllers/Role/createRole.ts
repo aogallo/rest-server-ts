@@ -31,7 +31,7 @@ export const postRole = async (req: Request, res: Response) => {
     })
   } catch (error) {
     if (error instanceof Error) {
-      console.log(`Error to retrieve a treatment plan ${error.message}`)
+      console.error(`Error to create a role: ${error.message}`)
     }
     res
       .status(500)

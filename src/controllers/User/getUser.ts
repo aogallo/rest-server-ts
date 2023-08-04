@@ -14,7 +14,7 @@ export const getUser = async (req: Request, res: Response) => {
     res.json({ success: true, data: userData })
   } catch (error) {
     if (error instanceof Error) {
-      console.log(`Error to retrieve a treatment plan ${error.message}`)
+      console.error(`Error to retrieve a user: ${error.message}`)
     }
     res
       .status(500)

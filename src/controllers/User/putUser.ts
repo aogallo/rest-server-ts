@@ -64,7 +64,7 @@ export const putUser = async (req: Request, res: Response) => {
     res.status(204).send()
   } catch (error) {
     if (error instanceof Error) {
-      console.log(`Error to retrieve a treatment plan ${error.message}`)
+      console.error(`Error to update a user: ${error.message}`)
     }
     res
       .status(500)
