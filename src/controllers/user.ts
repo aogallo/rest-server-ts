@@ -16,6 +16,21 @@ export const createUser = async (req: Request, res: Response) => {
         .json({ success: false, error: validator.error.issues })
     }
 
+    const userByUnDuplicatedValues = await UserModel.findOne({
+      $or: [
+        {
+          email: validator.data.email,
+        },
+        { name: validator.data.name },
+      ],
+    })
+
+    if (userByUnDuplicatedValues != null) {
+      return res
+        .status(400)
+        .json({ success: false, error: 'El nombre o correo ya existe' })
+    }
+
     const user = await UserModel.create(validator.data)
 
     res.status(200).json({ success: true, data: user })
@@ -114,6 +129,31 @@ export const putUser = async (req: Request, res: Response) => {
     }
 
     await UserModel.findByIdAndUpdate(id, validator.data)
+
+    res.status(204).send()
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(`Error to retrieve a treatment plan ${error.message}`)
+    }
+    res
+      .status(500)
+      .json({ success: false, error: 'Comuniquese con su administrador' })
+  }
+}
+
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+
+    const userExists = await UserModel.findById(id)
+
+    if (userExists == null) {
+      return res
+        .status(404)
+        .json({ success: false, error: 'El usuario no existe' })
+    }
+
+    await UserModel.findByIdAndDelete(id)
 
     res.status(204).send()
   } catch (error) {
