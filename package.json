@@ -1,9 +1,19 @@
 {
-  "name": "rest-server-ts",
+  "name": "RESTful API with Typescript",
   "version": "1.0.0",
-  "description": "Rest API",
-  "main": "index.js",
-  "author": "Allan Gallo",
+  "description": "RESTful API to manager all transactions for manager system dentist",
+  "homepage": "https://github.com/aogallo/rest-server-ts#rest-server-ts",
+  "bugs": {
+    "url": "https://github.com/aogallo/node-restserver/issues",
+    "email": "allan.gallo.guerra@gmail.com"
+  },
+  "private": true,
+  "main": "main.js",
+  "author": {
+    "url": "https://www.allan-gallo.com",
+    "name": "Allan Gallo",
+    "email": "allan.gallo.guerra@gmail.com"
+  },
   "license": "MIT",
   "tags": [
     "tyorm",
