@@ -31,7 +31,11 @@ export class User {
   @prop({ required: true })
   email: string
 
-  @prop({ ref: () => Role, required: true, index: true })
+  @prop({
+    ref: () => Role,
+    required: true,
+    index: true,
+  })
   roles: Ref<Role>[]
 }
 

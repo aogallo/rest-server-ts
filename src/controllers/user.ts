@@ -8,7 +8,11 @@ export const getUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
 
-    const userData = await UserModel.findById(id).populate('roles')
+    const userData = await UserModel.findById(id).populate('roles',{
+      id: 1,
+      name: 1,
+      permissions: 1,
+    })
 
     res.json({ success: true, data: userData })
   } catch (error) {
@@ -23,7 +27,11 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (_req: Request, res: Response) => {
   try {
-    const userData = await UserModel.find().populate('roles')
+    const userData = await UserModel.find().populate('roles', {
+      id: 1,
+      name: 1,
+      permissions: 1,
+    })
 
     res.json({ success: true, data: userData })
   } catch (error) {
@@ -87,7 +95,11 @@ export const putUser = async (req: Request, res: Response) => {
         .json({ success: false, error: 'El nombre o correo ya existe' })
     }
 
-    await UserModel.findByIdAndUpdate(id, validator.data)
+    await UserModel.findByIdAndUpdate(id, validator.data).populate('roles',{
+      id: 1,
+      name: 1,
+      permissions: 1,
+    })
 
     res.status(204).send()
   } catch (error) {

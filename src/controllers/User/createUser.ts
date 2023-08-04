@@ -46,7 +46,11 @@ export const createUser = async (req: Request, res: Response) => {
 
     const user = await UserModel.create({ ...validator.data, roles: roles })
 
-    await user?.populate('roles')
+    await user?.populate('roles', {
+      id: 1,
+      name: 1,
+      permissions: 1,
+    })
 
     res.status(201).json({ success: true, data: user })
   } catch (error) {

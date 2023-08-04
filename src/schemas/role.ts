@@ -11,6 +11,7 @@ import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
         return ret
       },
     },
+    discriminatorKey: 'createdAt',
   },
 })
 export class Role {
@@ -21,7 +22,7 @@ export class Role {
   name!: string
 
   @prop({ type: () => [String] })
-  permissions: [string]
+  permissions!: [string]
 }
 
 export const RoleModel = getModelForClass(Role)

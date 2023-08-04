@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { LoginType } from '@src/types'
 import { UserModel } from '@schemas/user'
 import { userValidator } from '@validators/user'
+import { Role } from '@schemas/role'
 
 export const login = async (req: Request, res: Response) => {
   const body = req.body as LoginType
@@ -43,9 +44,20 @@ export const login = async (req: Request, res: Response) => {
       .json({ success: false, message: 'Usuario y password no son correctos' })
   }
 
+  const permissions: string[] = []
+  const rolesName: string[] = []
+
+  const roles = user.roles as Role[]
+
+  roles.forEach((role: Role) => {
+    permissions.concat(role.permissions)
+  })
+
   const userForToken = {
     username: user.username,
     id: user._id,
+    roles: rolesName,
+    permissions,
   }
 
   const token = jwt.sign(userForToken, process.env.SECRET as string)
