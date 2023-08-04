@@ -1,31 +1,30 @@
+import { User } from '@schemas/user'
 import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 
 //====================================
 //  VERIFICACION DE TOKEN
 //====================================
-export const authToken = (req: Request, _res: Response, next: NextFunction) => {
-  const token = req.headers.authorization?.split('Bearer ')[1] as string
+export const authToken = (req: Request, res: Response, next: NextFunction) => {
+  const token = (req.headers.authorization?.split('Bearer ')[1] as string) || ''
+
+  if (token == '') {
+    return res.status(401).send()
+  }
 
   const verifyToken: jwt.JwtPayload = jwt.verify(
     token,
     process.env.SECRET as string
   ) as JwtPayload
 
-  console.log('res', verifyToken)
+  if (verifyToken.exp != null && Date.now() >= verifyToken.exp * 1000) {
+    return res.status(401).json({
+      success: false,
+    })
+  }
 
-  // jwt.verify(token, process.env.SECRET, (err, decoded) => {
-  //   if (err) {
-  //     return res.status(401).json({
-  //       ok: false,
-  //       message: 'Token no valido',
-  //     })
-  //   }
+  req.user = verifyToken.user as User
 
-  //   req.usuario = decoded.usuario
-
-  //   next()
-  // })
   next()
 }
 

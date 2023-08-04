@@ -44,9 +44,11 @@ export const login = async (req: Request, res: Response) => {
   }
 
   const userPayloadForToken = {
-    username: user.username,
-    name: user.name,
-    id: user._id,
+    user: {
+      username: user.username,
+      name: user.name,
+      id: user._id,
+    },
   }
 
   const expiresIn =
