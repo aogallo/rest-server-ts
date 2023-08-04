@@ -76,7 +76,7 @@ export const postCustomer = async (req: Request, res: Response) => {
 
     const response = await CustomerModel.create(validator.data)
 
-    res.json({ success: true, data: response })
+    res.status(201).json({ success: true, data: response })
   } catch (error) {
     if (error instanceof Error) {
       console.log(`Error to retrieve a customer ${error.message}`)

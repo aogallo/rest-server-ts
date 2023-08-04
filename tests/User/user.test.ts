@@ -27,7 +27,7 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  // await connection.dropCollection('users')
+  await connection.dropCollection('users')
   await server.disconnect()
 })
 
@@ -44,14 +44,21 @@ describe('User Test /user', () => {
     const response = await agent.post(baseRoute).send(user)
 
     expect(response.body.data).toHaveProperty('id')
-    expect(response.statusCode).toBe(200)
+    expect(response.statusCode).toBe(201)
   })
 
   it('GET: Retrieve a user to be response 200', async () => {
     const response = await agent.get(`${baseRoute}/${userTest.id}`)
 
+    const copyUserTest = {
+      id: userTest.id,
+      name: userTest.name,
+      email: userTest.email,
+      username: userTest.username,
+    }
+
     expect(response.statusCode).toBe(200)
-    expect(response.body.data).toMatchObject(userTest)
+    expect(response.body.data).toMatchObject(copyUserTest)
   })
 
   it('GET: Retrieve all user to be response 200', async () => {

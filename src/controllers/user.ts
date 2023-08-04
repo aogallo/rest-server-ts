@@ -36,7 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
 
     const user = await UserModel.create(validator.data)
 
-    res.status(200).json({ success: true, data: user })
+    res.status(201).json({ success: true, data: user })
   } catch (error) {
     if (error instanceof Error) {
       console.log(`Error to retrieve a treatment plan ${error.message}`)

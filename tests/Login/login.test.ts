@@ -37,8 +37,6 @@ describe.only('Login Test /login', () => {
       .post(`${baseRoute}/login`)
       .send({ username: userTest.username, password: userTest.password })
 
-    console.log(response.body)
-
     expect(response.statusCode).toBe(200)
     expect(response.body.data).toHaveProperty('token')
     expect(response.body.data).toHaveProperty('username')
