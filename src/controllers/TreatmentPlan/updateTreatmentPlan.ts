@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 
 import { TreatmentPlan, TreatmentPlanModel } from '@schemas/treatment-plan'
 
-export const putTratamientPlan = async (req: Request, res: Response) => {
+export const updateTratamientPlan = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
     const body = req.body as TreatmentPlan
