@@ -5,7 +5,7 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 
 import loginRouter from '@routes/login'
-import tratamientPlanRouter from '@routes/treatment-plan'
+import tratamientPlanRouter from '@routes/treatmentPlan'
 import customerRouter from '@routes/customer'
 import userRouter from '@routes/user'
 import roleRouter from '@routes/role'
@@ -71,7 +71,7 @@ export default class Server {
     //CORS
     this.app.use(
       cors({
-        origin: ['http://localhost:8000'],
+        origin: ['http://localhost:8000','http://localhost:5173'],
         methods: 'GET,PUT,POST,DELETE',
       })
     )

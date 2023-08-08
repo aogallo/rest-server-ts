@@ -9,8 +9,8 @@ import { updateCustomer } from '@controllers/Customer/updateCustomer'
 const customerRouter = Router()
 
 customerRouter.get('/:id', getCustomer)
-customerRouter.get('/', authToken, getCustomers)
-customerRouter.post('/', createCustomer)
+customerRouter.get('/', getCustomers)
+customerRouter.post('/', authToken,createCustomer)
 customerRouter.put('/:id', updateCustomer)
 customerRouter.delete('/:id', deleteCustomer)
 
