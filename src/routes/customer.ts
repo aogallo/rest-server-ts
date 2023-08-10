@@ -10,7 +10,7 @@ const customerRouter = Router()
 
 customerRouter.get('/:id', getCustomer)
 customerRouter.get('/', getCustomers)
-customerRouter.post('/', authToken,createCustomer)
+customerRouter.post('/', authToken, createCustomer)
 customerRouter.put('/:id', updateCustomer)
 customerRouter.delete('/:id', deleteCustomer)
 
