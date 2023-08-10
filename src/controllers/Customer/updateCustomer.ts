@@ -6,6 +6,7 @@ import { customerValidator } from '@validators/customer'
 
 export const updateCustomer = async (req: Request, res: Response) => {
   try {
+    console.log('updateCustomer')
     const { id } = req.params
     const customer = req.body as Customer
 

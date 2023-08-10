@@ -23,6 +23,9 @@ export class Customer {
   @prop({ unique: true })
   email: string
 
+  @prop({ required: true })
+  age: string
+
   @prop()
   address: string
 
