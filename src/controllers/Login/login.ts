@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
   if (_.isEmpty(body)) {
     return res
       .status(404)
-      .json({ success: false, message: 'Usuario y password es requerido' })
+      .json({ success: false, message: 'Usuario y contraseña es requerido' })
   }
 
   const validator = userValidator.partial().safeParse(body)
@@ -47,7 +47,10 @@ export const login = async (req: Request, res: Response) => {
   if (passwordCorrect == false) {
     return res
       .status(404)
-      .json({ success: false, message: 'Usuario y password no son correctos' })
+      .json({
+        success: false,
+        message: 'Usuario y constraseña no son correctos',
+      })
   }
 
   const permissions: string[] = []
