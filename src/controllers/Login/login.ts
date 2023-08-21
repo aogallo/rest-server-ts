@@ -47,7 +47,7 @@ export const login = async (req: Request, res: Response) => {
   if (passwordCorrect == false) {
     return res.status(404).json({
       success: false,
-      message: 'Usuario y constraseña no son correctos',
+      error: 'Usuario y constraseña no son correctos',
     })
   }
 
