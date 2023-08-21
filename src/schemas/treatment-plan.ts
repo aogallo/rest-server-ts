@@ -28,7 +28,4 @@ export class TreatmentPlan {
   name!: string
 }
 
-// let document = await KittenModel.create({ name: 'Kitty' })
-// "document" has proper (manual) typescript types of KittenClass
-
 export const TreatmentPlanModel = getModelForClass(TreatmentPlan)

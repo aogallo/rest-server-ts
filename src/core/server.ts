@@ -5,9 +5,10 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 
 import loginRouter from '@routes/login'
-import tratamientPlanRouter from '@routes/treatment-plan'
+import tratamientPlanRouter from '@routes/treatmentPlan'
 import customerRouter from '@routes/customer'
 import userRouter from '@routes/user'
+import roleRouter from '@routes/role'
 
 export default class Server {
   private app: Application
@@ -18,6 +19,7 @@ export default class Server {
     user: `${this.prefix}user`,
     login: `${this.prefix}login`,
     customer: `${this.prefix}customer`,
+    role: `${this.prefix}role`,
   }
 
   constructor() {
@@ -69,7 +71,7 @@ export default class Server {
     //CORS
     this.app.use(
       cors({
-        origin: ['http://localhost:8000'],
+        origin: ['http://localhost:8000','http://localhost:5173'],
         methods: 'GET,PUT,POST,DELETE',
       })
     )
@@ -91,6 +93,7 @@ export default class Server {
     this.app.use(this.apiPaths.login, loginRouter)
     this.app.use(this.apiPaths.customer, customerRouter)
     this.app.use(this.apiPaths.user, userRouter)
+    this.app.use(this.apiPaths.role, roleRouter)
   }
 
   listen() {

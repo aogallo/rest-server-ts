@@ -7,9 +7,11 @@ export const customerValidator = z
         required_error: 'El nombre es requerido',
         invalid_type_error: 'El nombre debe de ser un string',
       })
+      .trim()
       .min(3, 'El nombre debe contener al menos 3 caracteres'),
-    email: z.string().email({ message: 'El correo no es válido' }),
-    address: z.string().optional(),
-    phone: z.string().optional(),
+    age: z.string().optional(),
+    email: z.string().trim().email({ message: 'El correo no es válido' }),
+    address: z.string().trim().optional(),
+    phone: z.string().trim().optional(),
   })
   .passthrough()

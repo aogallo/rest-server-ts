@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { LoginType } from '@src/types'
 import { UserModel } from '@schemas/user'
 import { userValidator } from '@validators/user'
+import { Role } from '@schemas/role'
 
 export const login = async (req: Request, res: Response) => {
   const body = req.body as LoginType
@@ -13,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
   if (_.isEmpty(body)) {
     return res
       .status(404)
-      .json({ success: false, message: 'Usuario y password es requerido' })
+      .json({ success: false, error: 'Usuario y contraseña es requerido' })
   }
 
   const validator = userValidator.partial().safeParse(body)
@@ -24,12 +25,18 @@ export const login = async (req: Request, res: Response) => {
       .json({ success: false, error: validator.error.issues })
   }
 
-  const user = await UserModel.findOne({ username: validator.data.username })
+  const user = await UserModel.findOne({
+    username: validator.data.username,
+  }).populate('roles', {
+    id: 1,
+    name: 1,
+    permissions: 1,
+  })
 
   if (user == null) {
     return res
       .status(404)
-      .json({ success: false, message: 'Usuario no encontrado' })
+      .json({ success: false, error: 'Usuario no encontrado' })
   }
 
   const passwordCorrect = await bcrypt.compare(
@@ -38,17 +45,27 @@ export const login = async (req: Request, res: Response) => {
   )
 
   if (passwordCorrect == false) {
-    return res
-      .status(404)
-      .json({ success: false, message: 'Usuario y password no son correctos' })
+    return res.status(404).json({
+      success: false,
+      error: 'Usuario y constraseña no son correctos',
+    })
   }
 
+  const permissions: string[] = []
+  const rolesName: string[] = []
+
+  const roles = user.roles as Role[]
+
+  roles.forEach((role: Role) => {
+    permissions.push(...role.permissions)
+    rolesName.push(role.name)
+  })
+
   const userPayloadForToken = {
-    user: {
-      username: user.username,
-      name: user.name,
-      id: user._id,
-    },
+    username: user.username,
+    id: user._id,
+    roles: rolesName,
+    permissions,
   }
 
   const expiresIn =

@@ -11,26 +11,18 @@ import { getModelForClass, modelOptions, prop } from '@typegoose/typegoose'
         return ret
       },
     },
+    discriminatorKey: 'createdAt',
   },
 })
-export class Customer {
+export class Role {
   @prop()
   id: string
 
-  @prop({ required: true, index: true, unique: true })
+  @prop({ required: true, index: true })
   name!: string
 
-  @prop({ unique: true })
-  email: string
-
-  @prop({ required: true })
-  age: string
-
-  @prop()
-  address: string
-
-  @prop()
-  phone: string
+  @prop({ type: () => [String] })
+  permissions!: [string]
 }
 
-export const CustomerModel = getModelForClass(Customer)
+export const RoleModel = getModelForClass(Role)
