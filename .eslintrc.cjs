@@ -60,6 +60,14 @@ module.exports = {
             "./src/validators"
           ],
           [
+            "@middlewares",
+            "./src/middlewares"
+          ],
+          [
+            "@errors",
+            "./src/errors"
+          ],
+          [
             "@src",
             "./src"
           ]

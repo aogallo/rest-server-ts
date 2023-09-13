@@ -9,6 +9,7 @@ import tratamientPlanRouter from '@routes/treatmentPlan'
 import customerRouter from '@routes/customer'
 import userRouter from '@routes/user'
 import roleRouter from '@routes/role'
+import { errorHandler } from '@middlewares/errorHandler'
 
 export default class Server {
   private app: Application
@@ -29,6 +30,8 @@ export default class Server {
     this.middlewares()
 
     this.routes()
+
+    this.app.use(errorHandler)
   }
 
   async connectToDatabase() {
@@ -71,7 +74,7 @@ export default class Server {
     //CORS
     this.app.use(
       cors({
-        origin: ['http://localhost:8000','http://localhost:5173'],
+        origin: ['http://localhost:8000', 'http://localhost:5173'],
         methods: 'GET,PUT,POST,DELETE',
       })
     )
